@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: kis-stock-asking-price
+
+# 한국투자증권 API 설정
+kis:
+  # 실전투자 설정
+  prod:
+    app-key: ${KIS_APP_KEY:your_app_key}
+    app-secret: ${KIS_APP_SECRET:your_app_secret}
+    base-url: https://openapi.koreainvestment.com:9443
+
+  # 모의투자 설정
+  demo:
+    app-key: ${KIS_DEMO_APP_KEY:your_demo_app_key}
+    app-secret: ${KIS_DEMO_APP_SECRET:your_demo_app_secret}
+    base-url: https://openapivts.koreainvestment.com:29443
+
+  # 기본 모드 (prod 또는 demo)
+  mode: demo
+
+  # 계좌 정보
+  account:
+    number: ${KIS_ACCOUNT_NUMBER:12345678}
+    product-code: ${KIS_PRODUCT_CODE:01}
+
+logging:
+  level:
+    com.kis.sample: DEBUG
+    org.springframework.web: INFO
