@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국투자증권 주식 호가 조회</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 한국투자증권 주식 호가 조회</h1>
+            <p class="subtitle">실시간 주식 호가 정보를 확인하세요</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="stockCode"
+                    placeholder="종목코드 입력 (예: 005930)"
+                    maxlength="6"
+                    autocomplete="off">
+                <button id="searchBtn" onclick="searchStock()">조회</button>
+                <button id="autoRefreshBtn" onclick="toggleAutoRefresh()">자동갱신 OFF</button>
+            </div>
+
+            <div class="quick-stocks">
+                <span class="label">빠른 조회:</span>
+                <button onclick="quickSearch('005930')">삼성전자</button>
+                <button onclick="quickSearch('000660')">SK하이닉스</button>
+                <button onclick="quickSearch('035720')">카카오</button>
+                <button onclick="quickSearch('035420')">NAVER</button>
+                <button onclick="quickSearch('005380')">현대차</button>
+                <button onclick="quickSearch('051910')">LG화학</button>
+            </div>
+        </div>
+
+        <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+            <div class="spinner"></div>
+            <span>데이터를 불러오는 중...</span>
+        </div>
+
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+        <div id="stockInfo" class="stock-info" style="display: none;">
+            <!-- 현재가 정보 -->
+            <div class="current-price-section">
+                <div class="stock-header">
+                    <h2 id="stockName">종목명</h2>
+                    <span class="stock-code-display" id="stockCodeDisplay">000000</span>
+                </div>
+                <div class="price-info">
+                    <div class="current-price" id="currentPrice">0</div>
+                    <div class="price-change">
+                        <span id="priceChange" class="change-value">0</span>
+                        <span id="priceChangeRate" class="change-rate">0.00%</span>
+                    </div>
+                </div>
+                <div class="volume-info">
+                    <span class="label">거래량</span>
+                    <span id="volume" class="value">0</span>
+                </div>
+                <div class="last-update">
+                    <span>마지막 업데이트: <span id="lastUpdate">-</span></span>
+                </div>
+            </div>
+
+            <!-- 호가판 -->
+            <div class="orderbook-section">
+                <div class="orderbook-header">
+                    <h3>호가 정보</h3>
+                    <div class="orderbook-summary">
+                        <div class="summary-item ask">
+                            <span class="label">총 매도잔량</span>
+                            <span id="totalAskVolume" class="value">0</span>
+                        </div>
+                        <div class="summary-item bid">
+                            <span class="label">총 매수잔량</span>
+                            <span id="totalBidVolume" class="value">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="orderbook">
+                    <div class="orderbook-table-header">
+                        <div class="header-cell ask">매도잔량</div>
+                        <div class="header-cell ask">매도호가</div>
+                        <div class="header-cell bid">매수호가</div>
+                        <div class="header-cell bid">매수잔량</div>
+                    </div>
+                    <div id="orderbookRows">
+                        <!-- JavaScript로 동적 생성 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>한국투자증권 Open Trading API 샘플</p>
+            <p class="note">※ 실전/모의투자 데이터는 application.yml 설정에 따라 달라집니다.</p>
+        </footer>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

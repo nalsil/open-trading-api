@@ -1,0 +1,481 @@
+/* 전역 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #0066cc;
+    --secondary-color: #f8f9fa;
+    --border-color: #dee2e6;
+    --text-color: #212529;
+    --text-muted: #6c757d;
+
+    --ask-color: #0066ff;
+    --bid-color: #ff4444;
+    --ask-bg: #e3f2ff;
+    --bid-bg: #ffe8e8;
+
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* 헤더 */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* 검색 섹션 */
+.search-section {
+    padding: 30px;
+    background: var(--secondary-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+#stockCode {
+    flex: 1;
+    min-width: 200px;
+    padding: 14px 18px;
+    font-size: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+#stockCode:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+button {
+    padding: 14px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+#searchBtn {
+    background: var(--primary-color);
+    color: white;
+}
+
+#searchBtn:hover {
+    background: #0052a3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+#autoRefreshBtn {
+    background: var(--text-muted);
+    color: white;
+}
+
+#autoRefreshBtn:hover {
+    background: #5a6268;
+}
+
+#autoRefreshBtn.active {
+    background: var(--success-color);
+}
+
+/* 빠른 조회 */
+.quick-stocks {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.quick-stocks .label {
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-right: 5px;
+}
+
+.quick-stocks button {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    background: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.quick-stocks button:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* 로딩 인디케이터 */
+.loading-indicator {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--secondary-color);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 에러 메시지 */
+.error-message {
+    padding: 20px 30px;
+    background: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid var(--danger-color);
+    margin: 20px 30px;
+    border-radius: 4px;
+}
+
+/* 주식 정보 */
+.stock-info {
+    padding: 30px;
+}
+
+/* 현재가 섹션 */
+.current-price-section {
+    background: var(--secondary-color);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.stock-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stock-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.stock-code-display {
+    background: var(--primary-color);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.price-info {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.current-price {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.price-change {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.change-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.change-rate {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.price-change.up {
+    color: var(--danger-color);
+}
+
+.price-change.down {
+    color: var(--primary-color);
+}
+
+.price-change.unchanged {
+    color: var(--text-muted);
+}
+
+.volume-info {
+    display: flex;
+    gap: 10px;
+    padding: 12px 0;
+    border-top: 1px solid var(--border-color);
+    margin-top: 10px;
+}
+
+.volume-info .label {
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.volume-info .value {
+    font-weight: 700;
+}
+
+.last-update {
+    margin-top: 10px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+/* 호가판 섹션 */
+.orderbook-section {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.orderbook-header {
+    padding: 20px;
+    background: var(--secondary-color);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.orderbook-header h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+.orderbook-summary {
+    display: flex;
+    gap: 30px;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.summary-item .label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.summary-item .value {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.summary-item.ask .value {
+    color: var(--ask-color);
+}
+
+.summary-item.bid .value {
+    color: var(--bid-color);
+}
+
+/* 호가 테이블 */
+.orderbook {
+    font-size: 0.95rem;
+}
+
+.orderbook-table-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background: var(--secondary-color);
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.header-cell {
+    padding: 12px;
+    text-align: center;
+}
+
+.header-cell.ask {
+    color: var(--ask-color);
+}
+
+.header-cell.bid {
+    color: var(--bid-color);
+}
+
+.orderbook-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.2s;
+}
+
+.orderbook-row:hover {
+    background: var(--secondary-color);
+}
+
+.cell {
+    padding: 14px 12px;
+    text-align: right;
+    font-weight: 500;
+}
+
+.cell.ask-volume {
+    background: var(--ask-bg);
+    color: var(--ask-color);
+    font-weight: 600;
+}
+
+.cell.ask-price {
+    color: var(--ask-color);
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.cell.bid-price {
+    color: var(--bid-color);
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.cell.bid-volume {
+    background: var(--bid-bg);
+    color: var(--bid-color);
+    font-weight: 600;
+}
+
+/* 숫자 포맷팅 */
+.number {
+    font-variant-numeric: tabular-nums;
+}
+
+/* 푸터 */
+footer {
+    padding: 25px;
+    text-align: center;
+    background: var(--secondary-color);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+.note {
+    font-size: 0.875rem;
+    font-style: italic;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    #stockCode {
+        min-width: 100%;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .current-price {
+        font-size: 2.2rem;
+    }
+
+    .change-value {
+        font-size: 1.2rem;
+    }
+
+    .orderbook-row {
+        font-size: 0.85rem;
+    }
+
+    .cell {
+        padding: 10px 8px;
+    }
+
+    .orderbook-summary {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stock-info {
+    animation: fadeIn 0.5s ease-out;
+}

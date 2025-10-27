@@ -8,6 +8,8 @@
 - 국내 주식 호가 조회 (매도/매수 호가 10단계)
 - 예상 체결 정보 조회
 - RESTful API 제공
+- 웹 UI 제공 (HTML/CSS/JavaScript)
+- 실시간 자동 갱신 기능
 
 ## 기술 스택
 
@@ -24,7 +26,8 @@ spring-boot-asking-price/
 │   └── main/
 │       ├── java/com/kis/sample/
 │       │   ├── config/
-│       │   │   └── KisConfig.java                  # 한투 API 설정
+│       │   │   ├── KisConfig.java                  # 한투 API 설정
+│       │   │   └── WebConfig.java                  # CORS 및 웹 설정
 │       │   ├── controller/
 │       │   │   └── StockController.java            # REST API 컨트롤러
 │       │   ├── service/
@@ -33,9 +36,17 @@ spring-boot-asking-price/
 │       │   ├── model/
 │       │   │   ├── TokenResponse.java              # 토큰 응답 모델
 │       │   │   └── AskingPriceResponse.java        # 호가 응답 모델
+│       │   ├── runner/
+│       │   │   └── AskingPriceTestRunner.java      # 시작 시 테스트 실행
 │       │   └── KisStockAskingPriceApplication.java # 메인 애플리케이션
 │       └── resources/
-│           └── application.yml                      # 애플리케이션 설정
+│           ├── application.yml                      # 애플리케이션 설정
+│           └── static/                              # 웹 UI 리소스
+│               ├── index.html                       # 메인 페이지
+│               ├── css/
+│               │   └── style.css                    # 스타일시트
+│               └── js/
+│                   └── app.js                       # JavaScript
 ├── pom.xml                                          # Maven 설정
 └── README.md                                        # 이 파일
 ```
@@ -83,7 +94,40 @@ mvn spring-boot:run
 java -jar target/kis-stock-asking-price-1.0.0.jar
 ```
 
-## API 사용 방법
+## 웹 UI 사용 방법
+
+애플리케이션을 실행한 후 웹 브라우저에서 다음 주소로 접속하세요:
+
+```
+http://localhost:8080
+```
+
+### 웹 UI 주요 기능
+
+1. **종목 조회**
+   - 종목코드 입력란에 6자리 종목코드 입력 (예: 005930)
+   - "조회" 버튼 클릭 또는 Enter 키로 조회
+
+2. **빠른 조회**
+   - 주요 종목 버튼 클릭으로 즉시 조회
+   - 삼성전자, SK하이닉스, 카카오, NAVER, 현대차, LG화학
+
+3. **자동 갱신**
+   - "자동갱신" 버튼으로 5초마다 자동 갱신
+   - ON/OFF 토글 가능
+
+4. **호가판 정보**
+   - 매도/매수 호가 10단계 표시
+   - 현재가, 전일대비, 거래량 표시
+   - 총 매도/매수 잔량 표시
+
+### 웹 UI 스크린샷 설명
+
+- **상단**: 종목코드 입력 및 빠른 조회 버튼
+- **중단**: 현재가, 전일대비, 거래량 정보
+- **하단**: 호가판 (매도/매수 10단계)
+
+## API 사용 방법 (REST API)
 
 ### 1. 전체 호가 정보 조회
 
