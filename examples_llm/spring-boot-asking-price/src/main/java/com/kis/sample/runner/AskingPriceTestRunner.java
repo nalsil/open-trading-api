@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 
 /**
  * 애플리케이션 시작 시 호가 조회 테스트를 실행하는 Runner
- *
+ * <p>
  * 이 컴포넌트는 Spring Boot가 시작될 때 자동으로 실행되어
  * 삼성전자(005930)의 호가 정보를 조회하고 콘솔에 출력합니다.
- *
+ * <p>
  * 활성화/비활성화: application.yml에서 설정
  * kis.test-on-startup: true/false
  */
@@ -69,12 +69,12 @@ public class AskingPriceTestRunner implements CommandLineRunner {
         if (response.getOutput2() != null) {
             AskingPriceResponse.Output2 output2 = response.getOutput2();
             log.info("║ [현재가 정보]                                                  ║");
-            log.info("║  - 현재가: {} 원", String.format("%,10s", output2.getStckPrpr()));
+            log.info("║  - 현재가: {} 원", String.format("%10s", output2.getStckPrpr()));
             log.info("║  - 전일대비: {} 원 ({})",
-                String.format("%,10s", output2.getPrdyVrss()),
-                getPriceSignText(output2.getPrdyVrssSign()));
+                    String.format("%10s", output2.getPrdyVrss()),
+                    getPriceSignText(output2.getPrdyVrssSign()));
             log.info("║  - 전일대비율: {}%", output2.getPrdyCtrt());
-            log.info("║  - 누적거래량: {} 주", String.format("%,15s", output2.getAcmlVol()));
+            log.info("║  - 누적거래량: {} 주", String.format("%15s", output2.getAcmlVol()));
             log.info("╠════════════════════════════════════════════════════════════════╣");
         }
 
@@ -86,19 +86,19 @@ public class AskingPriceTestRunner implements CommandLineRunner {
             log.info("╠════════════════════════════════════════════════════════════════╣");
 
             printOrderBook(1, output1.getAskp1(), output1.getAskpRsqn1(),
-                          output1.getBidp1(), output1.getBidpRsqn1());
+                    output1.getBidp1(), output1.getBidpRsqn1());
             printOrderBook(2, output1.getAskp2(), output1.getAskpRsqn2(),
-                          output1.getBidp2(), output1.getBidpRsqn2());
+                    output1.getBidp2(), output1.getBidpRsqn2());
             printOrderBook(3, output1.getAskp3(), output1.getAskpRsqn3(),
-                          output1.getBidp3(), output1.getBidpRsqn3());
+                    output1.getBidp3(), output1.getBidpRsqn3());
             printOrderBook(4, output1.getAskp4(), output1.getAskpRsqn4(),
-                          output1.getBidp4(), output1.getBidpRsqn4());
+                    output1.getBidp4(), output1.getBidpRsqn4());
             printOrderBook(5, output1.getAskp5(), output1.getAskpRsqn5(),
-                          output1.getBidp5(), output1.getBidpRsqn5());
+                    output1.getBidp5(), output1.getBidpRsqn5());
 
             log.info("╠════════════════════════════════════════════════════════════════╣");
-            log.info("║  총 매도호가: {} 주", String.format("%,15s", output1.getTotalAskpRsqn()));
-            log.info("║  총 매수호가: {} 주", String.format("%,15s", output1.getTotalBidpRsqn()));
+            log.info("║  총 매도호가: {} 주", String.format("%15s", output1.getTotalAskpRsqn()));
+            log.info("║  총 매수호가: {} 주", String.format("%15s", output1.getTotalBidpRsqn()));
         }
 
         log.info("╚════════════════════════════════════════════════════════════════╝");
@@ -109,13 +109,13 @@ public class AskingPriceTestRunner implements CommandLineRunner {
      * 호가 라인 출력
      */
     private void printOrderBook(int level, String askPrice, String askVol,
-                               String bidPrice, String bidVol) {
+                                String bidPrice, String bidVol) {
         log.info("║ {} │ {} │ {} │ {} │ {} │",
-            String.format("%2d", level),
-            String.format("%,10s", askPrice != null ? askPrice : "0"),
-            String.format("%,12s", askVol != null ? askVol : "0"),
-            String.format("%,10s", bidPrice != null ? bidPrice : "0"),
-            String.format("%,12s", bidVol != null ? bidVol : "0")
+                String.format("%2d", level),
+                String.format("%10s", askPrice != null ? askPrice : "0"),
+                String.format("%12s", askVol != null ? askVol : "0"),
+                String.format("%10s", bidPrice != null ? bidPrice : "0"),
+                String.format("%12s", bidVol != null ? bidVol : "0")
         );
     }
 

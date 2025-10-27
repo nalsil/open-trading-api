@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/nalsi/AppData/Roaming/Claude/**)",
+      "WebFetch(domain:example.com)",
+      "Bash(npm install:*)",
+      "WebSearch",
+      "Bash(claude mcp add:*)",
+      "Bash(npx -y @modelcontextprotocol/create-server github)",
+      "Bash(cat:*)",
+      "Bash(mvn clean install:*)",
+      "Bash(chmod:*)",
+      "Read(//c/Workspaces/Workspace-Trade/open-trading-api/**)",
+      "Bash(mvn clean compile:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

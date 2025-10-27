@@ -1,0 +1,594 @@
+/* 기술적 분석 페이지 스타일 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+/* 네비게이션 */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    background: #667eea;
+    color: white;
+}
+
+/* 컨테이너 */
+.container {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* 헤더 */
+.header {
+    text-align: center;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* 파라미터 섹션 */
+.parameters-section {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.parameters-section h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.param-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.param-card h3 {
+    color: #667eea;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.param-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.param-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.param-item label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.param-value {
+    background: #667eea;
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.param-item input[type="text"],
+.param-item input[type="number"] {
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.param-item input[type="text"]:focus,
+.param-item input[type="number"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.param-item input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.param-item input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.param-item input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+/* 버튼 */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn {
+    flex: 1;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.btn-chart {
+    background: #28a745;
+    color: white;
+}
+
+.btn-chart:hover {
+    background: #218838;
+}
+
+.btn-download {
+    background: #007bff;
+    color: white;
+}
+
+.btn-download:hover {
+    background: #0056b3;
+}
+
+.btn-icon {
+    font-size: 1.3rem;
+}
+
+/* 결과 섹션 */
+.result-section {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.result-section h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+/* 정보 카드 */
+.info-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.info-card h3 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.current-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price-label {
+    font-size: 1.1rem;
+}
+
+.price-value {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* 시그널 카드 */
+.signal-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid #667eea;
+}
+
+.signal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.signal-header h3 {
+    color: #333;
+    font-size: 1.3rem;
+}
+
+.signal-badge {
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.signal-badge.strong-buy {
+    background: #28a745;
+    color: white;
+}
+
+.signal-badge.buy {
+    background: #17a2b8;
+    color: white;
+}
+
+.signal-badge.hold {
+    background: #ffc107;
+    color: #333;
+}
+
+.signal-badge.sell {
+    background: #fd7e14;
+    color: white;
+}
+
+.signal-badge.strong-sell {
+    background: #dc3545;
+    color: white;
+}
+
+.signal-reason {
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.confidence-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.confidence-label {
+    font-weight: 600;
+    color: #555;
+    min-width: 60px;
+}
+
+.confidence-progress {
+    flex: 1;
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.confidence-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    transition: width 0.5s ease;
+}
+
+.confidence-value {
+    font-weight: bold;
+    color: #667eea;
+    min-width: 50px;
+    text-align: right;
+}
+
+/* 지표 카드 */
+.indicator-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.indicator-card h3 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.indicator-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.indicator-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.indicator-label {
+    font-weight: 600;
+    color: #555;
+}
+
+.indicator-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #667eea;
+}
+
+/* RSI 디스플레이 */
+.rsi-display {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.rsi-gauge {
+    width: 100%;
+}
+
+.rsi-bar {
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to right, #dc3545 0%, #ffc107 50%, #28a745 100%);
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.rsi-fill {
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    border-right: 3px solid #333;
+    transition: width 0.5s ease;
+}
+
+.rsi-markers {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.rsi-marker {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 600;
+}
+
+.rsi-value-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+}
+
+.rsi-label {
+    font-weight: 600;
+    color: #555;
+}
+
+.rsi-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.rsi-status {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.rsi-status.oversold {
+    background: #dc3545;
+    color: white;
+}
+
+.rsi-status.neutral {
+    background: #ffc107;
+    color: #333;
+}
+
+.rsi-status.overbought {
+    background: #28a745;
+    color: white;
+}
+
+/* 차트 섹션 */
+.chart-section {
+    margin-top: 2rem;
+}
+
+.chart-section h3 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.chart-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.chart-container {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1rem;
+    overflow: auto;
+}
+
+.chart-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* 로딩 */
+.loading {
+    text-align: center;
+    padding: 3rem;
+    color: #667eea;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* 에러 메시지 */
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    border-left: 5px solid #dc3545;
+}
+
+/* 푸터 */
+.footer {
+    text-align: center;
+    color: white;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.footer p {
+    opacity: 0.8;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .param-group {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .chart-actions {
+        flex-direction: column;
+    }
+
+    .indicator-grid {
+        grid-template-columns: 1fr;
+    }
+}

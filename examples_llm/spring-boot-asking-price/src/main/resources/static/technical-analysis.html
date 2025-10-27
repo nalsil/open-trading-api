@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기술적 분석 - 볼린저 밴드 & RSI</title>
+    <link rel="stylesheet" href="css/technical-analysis.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">한국투자증권 API</h1>
+            <ul class="nav-menu">
+                <li><a href="index.html">호가 조회</a></li>
+                <li><a href="technical-analysis.html" class="active">기술적 분석</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="header">
+            <h1>📊 기술적 분석</h1>
+            <p class="subtitle">볼린저 밴드 & RSI 기반 매매 시그널</p>
+        </header>
+
+        <!-- 파라미터 설정 -->
+        <div class="parameters-section">
+            <h2>🎛️ 분석 파라미터</h2>
+
+            <div class="param-card">
+                <h3>기본 정보</h3>
+                <div class="param-group">
+                    <div class="param-item">
+                        <label for="stockCode">종목 코드</label>
+                        <input type="text" id="stockCode" value="005930" placeholder="예: 005930">
+                    </div>
+                    <div class="param-item">
+                        <label for="stockName">종목 이름</label>
+                        <input type="text" id="stockName" value="삼성전자" placeholder="예: 삼성전자">
+                    </div>
+                    <div class="param-item">
+                        <label for="displayDays">차트 기간 (일)</label>
+                        <input type="number" id="displayDays" value="60" min="20" max="200">
+                    </div>
+                </div>
+            </div>
+
+            <div class="param-card">
+                <h3>볼린저 밴드 설정</h3>
+                <div class="param-group">
+                    <div class="param-item">
+                        <label for="bbPeriod">
+                            이동평균 기간
+                            <span class="param-value" id="bbPeriodValue">20</span>
+                        </label>
+                        <input type="range" id="bbPeriod" min="5" max="50" value="20" step="1">
+                    </div>
+                    <div class="param-item">
+                        <label for="bbMultiplier">
+                            표준편차 배수
+                            <span class="param-value" id="bbMultiplierValue">2.0</span>
+                        </label>
+                        <input type="range" id="bbMultiplier" min="1.0" max="3.0" value="2.0" step="0.1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="param-card">
+                <h3>RSI 설정</h3>
+                <div class="param-group">
+                    <div class="param-item">
+                        <label for="rsiPeriod">
+                            RSI 기간
+                            <span class="param-value" id="rsiPeriodValue">14</span>
+                        </label>
+                        <input type="range" id="rsiPeriod" min="5" max="30" value="14" step="1">
+                    </div>
+                    <div class="param-item">
+                        <label for="rsiOverbought">
+                            과매수 기준선
+                            <span class="param-value" id="rsiOverboughtValue">70</span>
+                        </label>
+                        <input type="range" id="rsiOverbought" min="60" max="90" value="70" step="1">
+                    </div>
+                    <div class="param-item">
+                        <label for="rsiOversold">
+                            과매도 기준선
+                            <span class="param-value" id="rsiOversoldValue">30</span>
+                        </label>
+                        <input type="range" id="rsiOversold" min="10" max="40" value="30" step="1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="analyzeBtn" class="btn btn-primary">
+                    <span class="btn-icon">🔍</span>
+                    분석 실행
+                </button>
+                <button id="resetBtn" class="btn btn-secondary">
+                    <span class="btn-icon">↻</span>
+                    초기화
+                </button>
+            </div>
+        </div>
+
+        <!-- 분석 결과 -->
+        <div id="resultSection" class="result-section" style="display: none;">
+            <h2>📈 분석 결과</h2>
+
+            <!-- 현재가 정보 -->
+            <div class="info-card">
+                <h3 id="stockTitle">종목 정보</h3>
+                <div class="current-price">
+                    <span class="price-label">현재가</span>
+                    <span id="currentPrice" class="price-value">-</span>
+                </div>
+            </div>
+
+            <!-- 복합 시그널 -->
+            <div id="signalCard" class="signal-card">
+                <div class="signal-header">
+                    <h3>매매 시그널</h3>
+                    <div id="signalBadge" class="signal-badge">-</div>
+                </div>
+                <div id="signalReason" class="signal-reason">-</div>
+                <div class="confidence-bar">
+                    <div class="confidence-label">신뢰도</div>
+                    <div class="confidence-progress">
+                        <div id="confidenceBar" class="confidence-fill" style="width: 0%"></div>
+                    </div>
+                    <div id="confidenceValue" class="confidence-value">0%</div>
+                </div>
+            </div>
+
+            <!-- 볼린저 밴드 정보 -->
+            <div class="indicator-card">
+                <h3>📊 볼린저 밴드</h3>
+                <div class="indicator-grid">
+                    <div class="indicator-item">
+                        <span class="indicator-label">상단 밴드</span>
+                        <span id="bbUpper" class="indicator-value">-</span>
+                    </div>
+                    <div class="indicator-item">
+                        <span class="indicator-label">중간 밴드</span>
+                        <span id="bbMiddle" class="indicator-value">-</span>
+                    </div>
+                    <div class="indicator-item">
+                        <span class="indicator-label">하단 밴드</span>
+                        <span id="bbLower" class="indicator-value">-</span>
+                    </div>
+                    <div class="indicator-item">
+                        <span class="indicator-label">밴드 폭</span>
+                        <span id="bbWidth" class="indicator-value">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RSI 정보 -->
+            <div class="indicator-card">
+                <h3>📉 RSI (Relative Strength Index)</h3>
+                <div class="rsi-display">
+                    <div class="rsi-gauge">
+                        <div class="rsi-bar">
+                            <div id="rsiBar" class="rsi-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="rsi-markers">
+                            <span class="rsi-marker oversold">과매도</span>
+                            <span class="rsi-marker neutral">중립</span>
+                            <span class="rsi-marker overbought">과매수</span>
+                        </div>
+                    </div>
+                    <div class="rsi-value-display">
+                        <span class="rsi-label">RSI 값</span>
+                        <span id="rsiValue" class="rsi-value">-</span>
+                        <span id="rsiStatus" class="rsi-status">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 차트 -->
+            <div class="chart-section">
+                <h3>📊 캔들스틱 차트</h3>
+                <div class="chart-actions">
+                    <button id="generateChartBtn" class="btn btn-chart">
+                        <span class="btn-icon">📈</span>
+                        차트 생성
+                    </button>
+                    <button id="downloadChartBtn" class="btn btn-download" style="display: none;">
+                        <span class="btn-icon">⬇️</span>
+                        차트 다운로드
+                    </button>
+                </div>
+                <div id="chartContainer" class="chart-container" style="display: none;">
+                    <img id="chartImage" src="" alt="차트">
+                </div>
+                <div id="chartLoading" class="loading" style="display: none;">
+                    차트 생성 중...
+                </div>
+            </div>
+        </div>
+
+        <!-- 로딩 -->
+        <div id="loading" class="loading" style="display: none;">
+            분석 중...
+        </div>
+
+        <!-- 에러 메시지 -->
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 한국투자증권 API 샘플. 교육용으로만 사용하세요.</p>
+    </footer>
+
+    <script src="js/technical-analysis.js"></script>
+</body>
+</html>
